@@ -68,7 +68,6 @@
     <script src='/javascript/libs/jquery.min.js'></script>
     <script src="javascript/libs/highlight.min.js"></script>
     <script src="/javascript/libs/marked.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
     <script>
         function getJSON() {
@@ -91,6 +90,11 @@
             var content = marked( data[ key ].content );
 
             document.getElementById('main-content').innerHTML = content;
+
+            var all = document.querySelectorAll('pre code');
+            [].slice.call( all ).forEach(function(el) {
+                hljs.highlightBlock( el );
+            });
         }
 
         getJSON().then(function(data) {
