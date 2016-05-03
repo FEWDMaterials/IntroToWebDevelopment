@@ -17,9 +17,9 @@
             <div class="book__col">
                 <div class="book__colwrap ui menu inverted vertical" id="st-menu">
                     <div class="item colheader colitem">
-                        <h1 class="title colheader__title">Introduction to Programming With JavaScript</h1>
+                        <h1 class="title colheader__title">Introduction to Web Development</h1>
                         <br>
-                        <div class="description">An introduction to programming basics.</div>
+                        <div class="description">An introduction to web devleopment basics.</div>
                         <br>
                     </div>
                     <!--
@@ -112,7 +112,8 @@
 
                 var a = document.createElement('a');
                 a.setAttribute('href', '#'+item);
-                a.innerHTML = item.replace(/\-/g, ' ');
+                var str = item.replace(/\-/g, ' ');
+                a.innerHTML = str.slice(0,1).toUpperCase() + str.slice(1);
 
                 b.appendChild(a);
                 div.appendChild(b);
