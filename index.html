@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0;'>
+    <meta charset="UTF-8">
+    <title>Introduction to Programming With JavaScript</title>
+
+    <link href='styles/libs/fonts.css' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='styles/semantic.min.css'>
+    <link rel="stylesheet" href="styles/libs/monokai.min.css">
+    <link rel='stylesheet' href='styles/main.css'>
+</head>
+<body id="book">
+    <div class="book-wrap">
+        <div class="book-wrap__inner">
+
+            <div class="book__col">
+                <div class="book__colwrap ui menu inverted vertical" id="st-menu">
+                    <div class="item colheader colitem">
+                        <h1 class="title colheader__title">Introduction to Programming With JavaScript</h1>
+                        <br>
+                        <div class="description">An introduction to programming basics.</div>
+                        <br>
+                    </div>
+                    <!--
+                    <div class="item item__active">
+                        <b class="header"><a href="#memory">Memory</a></b>
+                    </div>
+                    -->
+                </div>
+            </div><!-- book__col -->
+
+            <div class="book__content">
+
+                    <div class="main-content js-content" style="padding-bottom: 100px;" id="main-content">
+
+                    </div>
+
+<div class="ui container stackable grid main-content" style="margin-top:50px;" id="footer">
+    <div class="one column row">
+        <div class="column" style="font-size:16px;text-align: center;">
+            <div class="description">
+                <span>Built by your boy</span>
+                <strong>
+                    <a href="https://twitter.com/the_taqquikarim" target="_blank">Taq Karim</a>
+                </strong>
+                <span>with</span>
+                <strong>
+                    <a href="https://github.com/chjj/marked" target="_blank">marked.js</a>,
+                </strong>
+                <strong>
+                    <a href="https://highlightjs.org/" target="_blank">highlight.js</a>,
+                </strong>
+                <strong>pullups</strong>,
+                <strong>
+                    <a href="https://open.spotify.com/track/37zu8c48O3qVkkAlfaQzj1" target="_blank">BTS</a>,
+                </strong>
+                <span>and a</span>
+                <strong><a href="http://www.amazon.com/A-Heartbreaking-Work-Staggering-Genius/dp/0375725784/ref=cm_cr_pr_product_top?ie=UTF8" target="_blank">Heartbreaking Work of Staggering Genius</a></strong>.
+            </div>
+        </div>
+    </div>
+</div>
+            </div><!-- book__content -->
+        </div>
+    </div>
+
+    <script src='/javascript/libs/jquery.min.js'></script>
+    <script src="javascript/libs/highlight.min.js"></script>
+    <script src="/javascript/libs/marked.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    <script>
+        function getJSON() {
+            var content = "EGGERS_CONTENT.json";
+            return new Promise(function(resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', content);
+                xhr.addEventListener('load', function(e) {
+                    resolve( JSON.parse(e.currentTarget.responseText) );
+                });
+                xhr.addEventListener('error', function(e) {
+                    reject(e)
+                });
+                xhr.send();
+           });
+        }
+
+        function updateHTML( key, data ) {
+
+            var content = marked( data[ key ].content );
+
+            document.getElementById('main-content').innerHTML = content;
+        }
+
+        getJSON().then(function(data) {
+            console.log( data );
+
+            var list = data.__list__;
+
+            var menu = document.getElementById('st-menu');
+            list.forEach(function(item) {
+                var div = document.createElement('div');
+                div.classList.add('item', 'item__active');
+
+                var b = document.createElement('b');
+                b.classList.add('header');
+
+                var a = document.createElement('a');
+                a.setAttribute('href', '#'+item);
+                a.innerHTML = item.replace(/\-/g, ' ');
+
+                b.appendChild(a);
+                div.appendChild(b);
+                menu.appendChild( div );
+            });
+
+            window.addEventListener('hashchange', function(e) {
+                var key = window.location.hash.slice(1);
+
+                updateHTML( key, data );
+            });
+
+            updateHTML( list[0], data );
+        });
+    </script>
+</body>
+</html>
