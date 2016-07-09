@@ -1,3 +1,3 @@
 # Build Tools and Gulp
 
-Upcoming workshop curriculum.
+Upcoming workshop curriculum. 
